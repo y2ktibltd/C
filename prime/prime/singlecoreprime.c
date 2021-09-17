@@ -12,6 +12,7 @@ int num = atoi(argv[1]);
     clock_t start = clock();
     for (i=3;i<num;i+=2)
     {
+        printf("%d loops\n",i);
         square=sqrt(i);
         for (j=3;j<(square+1);j+=2)
             {
