@@ -4,11 +4,12 @@
 #include <math.h>
 int main(int argc, char *argv[])
 {
-int num = atoi(argv[1]);
+int num = atoi(argv[2]);
+int min = atoi(argv[1]);
 int i,j,square;
 clock_t start = clock();
 printf("2, ");
-for(i=3;i<num;i+=2)
+for(i=min;i<num;i++)
     {
     square=(sqrt(i)+1);
     for(j=2;j<=square;j++)
