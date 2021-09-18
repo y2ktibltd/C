@@ -8,7 +8,7 @@ int num = atoi(argv[1]);
     int i,j,v;
     int p=2;
     int square;
-    int primes[]={1,2};
+    int primes[]={2};
     clock_t start = clock();
     for (i=3;i<num;i+=2)
     {
