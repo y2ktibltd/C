@@ -19,7 +19,7 @@ int printArray(int array[])
     printf("FIRST ELEMENTS->\t");
     for (i=0;i<25;i++)
         printf("%d, ",array[i]);
-    printf("\n...\n ");
+    printf("\n...\n");
     for (i=MAX-25;i<MAX;i++)
         printf("%d, ",array[i]);
     printf("\t<-LAST ELEMENTS");
@@ -36,19 +36,22 @@ int sortArray(int array[])
         count_array[i]=0;
     for (i=0;i<MAX;i++)     //increment number of occurences of each variable across array
         count_array[array[i]]+=1;
-
+///*
     printf("\ncount_array counts: ");
     for (i=0;i<new_MAX;i++)     //prints number of counts of each integer
         printf("%d, ",count_array[i]);
     printf("\n");
 
     printf("\n%d new_MAX <-> %d MAX values",new_MAX,MAX);
+//*/
 ///*
     for (i=0;i<=new_MAX;i++)     //Actual sort of data from count_array back into array
         if (count_array[i]>0)
-            for (j=0;j<=count_array[i];j++)
+            for (j=0;j<count_array[i];j++)
                 {
-
+                array[k]=i;
+                k++;
+                count_array[i]-=1;
                 }
 //*/
     return 0;
