@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 50 //Define max array size to sort through
+#define MAX 1500000 //Define max array size to sort through
+#define RNS 1750000 //Random number size (0 to largest)
 
 int* shuffleArray()
 {
     int i;
     static unsigned int array[MAX];
     for (i=0;i<MAX;i++)
-        array[i]=rand()%MAX*1.5;
+        array[i]=rand()%RNS;
     return array;
 }
 
@@ -20,7 +21,7 @@ int printArray(int array[])
     for (i=0;i<25;i++)
         printf("%d, ",array[i]);
     printf("\n...\n");
-    for (i=MAX-25;i<MAX;i++)
+    for (i=MAX-10;i<MAX;i++)
         printf("%d, ",array[i]);
     printf("\t<-LAST ELEMENTS");
     printf("\n");
@@ -29,34 +30,19 @@ int printArray(int array[])
 
 int sortArray(int array[])
 {
-    int i;
-    int new_MAX=MAX*1.5;
-    int count_array[new_MAX];
-    for (i=0;i<new_MAX;i++)     //Create count_array of all zeros
+    int i,k=0;
+    int count_array[RNS];
+    for (i=0;i<RNS;i++)     //Create count_array of all zeros
         count_array[i]=0;
     for (i=0;i<MAX;i++)     //increment number of occurences of each variable across array
         count_array[array[i]]+=1;
-///*
-    printf("\ncount_array counts: ");
-    for (i=0;i<new_MAX;i++)     //prints number of counts of each integer
-        printf("%d, ",count_array[i]);
-    printf("\n");
-
-    printf("\n%d new_MAX <-> %d MAX values",new_MAX,MAX);
-//*/
-/*
-    int j=0,k=0;
-    for (i=0;i<=new_MAX;i++)     //Actual sort of data from count_array back into array
-        if (count_array[i]>0)
+    for (i=0;i<=RNS;i++)     //Actual sort of data from count_array back into array
+        while (count_array[i]>0)
         {
-            for (j=0;j<count_array[i];j++)
-                {
-                array[k]=i;
-                k++;
-                count_array[i]-=1;
-                }
+            array[k]=i;
+            k++;
+            count_array[i]-=1;
         }
-*/   
     return 0;
 }
 
@@ -68,7 +54,7 @@ int main()
     clock_t start=clock();
     sortArray(array);
     clock_t stop=clock();
-    printf("\n\nDONE SORTING %d ELEMENTS IN %f seconds \n\n",MAX,(double)(start-stop)/CLOCKS_PER_SEC);
+    printf("\nDONE SORTING %d ELEMENTS IN %f seconds \n\n",MAX,(double)(start-stop)/CLOCKS_PER_SEC);
     printArray(array);
     return 0;
 }
