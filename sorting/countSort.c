@@ -29,7 +29,7 @@ int printArray(int array[])
 
 int sortArray(int array[])
 {
-    int i,j=0,k=0;
+    int i;
     int new_MAX=MAX*1.5;
     int count_array[new_MAX];
     for (i=0;i<new_MAX;i++)     //Create count_array of all zeros
@@ -44,16 +44,19 @@ int sortArray(int array[])
 
     printf("\n%d new_MAX <-> %d MAX values",new_MAX,MAX);
 //*/
-///*
+/*
+    int j=0,k=0;
     for (i=0;i<=new_MAX;i++)     //Actual sort of data from count_array back into array
         if (count_array[i]>0)
+        {
             for (j=0;j<count_array[i];j++)
                 {
                 array[k]=i;
                 k++;
                 count_array[i]-=1;
                 }
-//*/
+        }
+*/   
     return 0;
 }
 
