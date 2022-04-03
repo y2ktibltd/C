@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 1500000 //Define max array size to sort through
-#define RNS 1750000 //Random number size (0 to largest)
+#define MAX 2000000 //Define max array size to sort through
+#define RNS 2000000 //Random number size (0 to largest)
 
 int* shuffleArray()
 {
@@ -21,7 +21,7 @@ int printArray(int array[])
     for (i=0;i<25;i++)
         printf("%d, ",array[i]);
     printf("\n...\n");
-    for (i=MAX-10;i<MAX;i++)
+    for (i=MAX-25;i<MAX;i++)
         printf("%d, ",array[i]);
     printf("\t<-LAST ELEMENTS");
     printf("\n");
