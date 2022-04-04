@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 2000000 //Define max array size to sort through
+#define MAX 1000000000 //Define max array size to sort through
 #define RNS 2000000 //Random number size (0 to largest)
 
 int* shuffleArray()
