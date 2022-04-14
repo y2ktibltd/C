@@ -21,12 +21,11 @@ int main(int argc, char *argv[])
         }
     int nl=0,tb=0,ch=0;                                 //assigns variables for newline,tab and character then set counts to 0
     char c;                                             //create c char to get char input from file
-    char *s;
-    s=argv[2];                                          //assign second variable from command line as searchable string
-    printf("Searching for string %s\n",s);
-
+    char *s=argv[2];                                          //assign second variable from command line as searchable string
+    printf("Searching for string "MAG"%s\n"RST,s);
     while ((c=getc(fp))!=EOF)                           //while c isnt the endof file character keep reading from file
     {
+
         if (c=='\t')
         {
             printf(BLU"/t"RST);
