@@ -4,6 +4,7 @@
 #define RED "\x1B[31m"
 #define GRN "\x1B[32m"
 #define BLU "\x1B[34m"
+#define MAG "\x1B[35m"
 #define RST "\x1B[0m"
 
 int main(int argc, char *argv[])
@@ -13,13 +14,17 @@ int main(int argc, char *argv[])
         {
         fp=fopen(argv[1],"r");                          //assign file pointer to argv[1] since file is valid
         }
-    else
+        else
         {
         printf("File %s not found!\n",argv[1]);
         exit(0);
         }
     int nl=0,tb=0,ch=0;                                 //assigns variables for newline,tab and character then set counts to 0
     char c;                                             //create c char to get char input from file
+    char *s;
+    s=argv[2];                                          //assign second variable from command line as searchable string
+    printf("Searching for string %s\n",s);
+
     while ((c=getc(fp))!=EOF)                           //while c isnt the endof file character keep reading from file
     {
         if (c=='\t')
