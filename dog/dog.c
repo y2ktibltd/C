@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define RED "\x1B[31m"
 #define GRN "\x1B[32m"
@@ -21,11 +22,14 @@ int main(int argc, char *argv[])
         }
     int nl=0,tb=0,ch=0;                                 //assigns variables for newline,tab and character then set counts to 0
     char c;                                             //create c char to get char input from file
-    char *s=argv[2];                                          //assign second variable from command line as searchable string
-    printf("Searching for string "MAG"%s\n"RST,s);
+    if (argv[2]!=NULL)
+    {
+        char *s=argv[2];                                          //assign second variable from command line as searchable string
+        int slen=strlen(argv[2]);
+        printf("Searching for string "MAG"%s"RST" of size "MAG"%d\n"RST,s,slen);
+    }
     while ((c=getc(fp))!=EOF)                           //while c isnt the endof file character keep reading from file
     {
-
         if (c=='\t')
         {
             printf(BLU"/t"RST);
@@ -36,7 +40,7 @@ int main(int argc, char *argv[])
             printf(GRN"/n"RST);
             ++nl;                                       //iterate when newline is detected
         }
-        if (c!=' ')
+        if (c!=' '&&c!='\n'&&c!='\t')
             ++ch;                                       //iterate when a char is detected
         printf("%c",c);                                 //print out the character read from file
     }
