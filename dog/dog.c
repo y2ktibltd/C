@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
         }
     int nl=0,tb=0,ch=0;                                 //assigns variables for newline,tab and character then set counts to 0
     char c;                                             //create c char to get char input from file
-    if (argv[2]!=NULL)
+    if (argv[2]!=NULL)                                  //if search string was given determine length and assign pointer
     {
-        char *s=argv[2];                                          //assign second variable from command line as searchable string
+        char *s=argv[2];                                //assign second variable from command line as searchable string
         int slen=strlen(argv[2]);
         printf("Searching for string "MAG"%s"RST" of size "MAG"%d\n"RST,s,slen);
     }
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
             ++ch;                                       //iterate when a char is detected
         printf("%c",c);                                 //print out the character read from file
     }
-    printf(RED"Chars=%d    "GRN"Lines=%d    "BLU"Tabs=%d\n"RST,ch,nl,tb);  //print tally for nl,tb and ch
+    printf(RED"Chars=%d "GRN"Lines=%d "BLU"Tabs=%d\n"RST,ch,nl,tb);  //print tally for nl,tb and ch
     fclose(fp);
     return 0;
 }
