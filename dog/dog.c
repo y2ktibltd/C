@@ -1,50 +1,97 @@
+//import base libraries
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
+//define color codes for printf beautification
 #define RED "\x1B[31m"
 #define GRN "\x1B[32m"
 #define BLU "\x1B[34m"
 #define MAG "\x1B[35m"
 #define RST "\x1B[0m"
 
+//max length of line being read from file
+#define MAXLINE 256
+//size of line number indent
+#define TABSIZE 5
+
+//include custom header and c files
+#include "open_file.h"
+#include "is_substring.h"
+#include "print_line.h"
+#include "int_len.h"
+
+//create struct to hold counters
+typedef struct
+{
+    int tabs;
+    int newlines;
+    int returns;
+    int characters;
+    int matches;
+} Count;
+
+//set default values for struct
+Count count={0,0,0,0,0};
+
+
+//main program loop
 int main(int argc, char *argv[])
 {
-    FILE *fp;                                           //create file pointer
-    if (fopen(argv[1],"r")!=NULL)                       //test if file exists 
+    //If user runs with no options present correct syntax
+    if (argc <= 1)
+    {
+        printf("Usage: ./dog file \""RED"search string"RST"\"\n");
+        exit(0);
+    }
+
+    //main loop variables
+    char line[MAXLINE];
+    FILE *file = open_file(argv[1]);
+    int line_number=1;
+
+    if (argv[2]!=NULL)
+    {
+        printf("Searching for "RED"%s\n"RST,argv[2]);
+    }
+
+    while (fgets(line, MAXLINE, file) != NULL)
+    {
+        if (argv[2]!=NULL)
         {
-        fp=fopen(argv[1],"r");                          //assign file pointer to argv[1] since file is valid
+            if (is_substring(line,argv[2]))
+            {
+                printf(RED"*"RST);
+                for (int i = int_len(line_number); i < TABSIZE-1; i++)
+                {
+                    printf(" ");
+                }
+            }
+            else
+            {
+                for (int i = int_len(line_number); i < TABSIZE; i++)
+                {
+                    printf(" ");
+                }
+            }
+            printf("%i:",line_number);
+            print_line(line,argv[2]);
         }
         else
         {
-        printf("File %s not found!\n",argv[1]);
-        exit(0);
+            for (int i = int_len(line_number); i < TABSIZE; i++)
+            {
+                printf(" ");
+            }
+            printf(" %i:",line_number);
+            print_line(line,argv[2]);
         }
-    int nl=0,tb=0,ch=0;                                 //assigns variables for newline,tab and character then set counts to 0
-    char c;                                             //create c char to get char input from file
-    if (argv[2]!=NULL)                                  //if search string was given determine length and assign pointer
-    {
-        char *s=argv[2];                                //assign second variable from command line as searchable string
-        int slen=strlen(argv[2]);
-        printf("Searching for string "MAG"%s"RST" of size "MAG"%d\n"RST,s,slen);
+        line_number+=1;
     }
-    while ((c=getc(fp))!=EOF)                           //while c isnt the endof file character keep reading from file
-    {
-        if (c=='\t')
-        {
-            printf(BLU"/t"RST);
-            ++tb;                                       //iterate when tab is detected
-        }                            
-        if (c=='\n')
-        {
-            printf(GRN"/n"RST);
-            ++nl;                                       //iterate when newline is detected
-        }
-        if (c!=' '&&c!='\n'&&c!='\t')
-            ++ch;                                       //iterate when a char is detected
-        printf("%c",c);                                 //print out the character read from file
-    }
-    printf(RED"Chars=%d "GRN"Lines=%d "BLU"Tabs=%d\n"RST,ch,nl,tb);  //print tally for nl,tb and ch
-    fclose(fp);
+
+    //print final tabulations and close out file
+    printf("\n\n""Lines:%d\n"BLU"Tabs:"RST"%d\n"GRN"NewLines:"RST"%d\n"MAG"Returns:"RST"%d\n"RED"Found Result:"RST"%d\nCharacters:%d\n",line_number-1,count.tabs,count.newlines,count.returns,count.matches,count.characters);
+    fclose(file);
     return 0;
 }
